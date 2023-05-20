@@ -1,44 +1,46 @@
 
 
 // Screen 2
-void Screen_2T0(){
+void Screen_2T0(String flowmode){
 // Transition 1
 //  Screen_2();
   // List
   // 1
 //  tft.pushImage(40,80,15, 125, s2_pointerback);
 //  tft.fillTriangle(40,80,40,100,50,90,TFT_CYAN3);
- tft.pushImage(0,60,320, 150, midscreenback);
+  tft.pushImage(0,60,320, 150, midscreenback);
   tft.setFreeFont(FSS12);
   tft.setCursor(55,100);
   tft.setTextColor(TFT_CYAN3);
   tft.setTextSize(1);
-  tft.print("SELECT FLOW RATE");
+  tft.print("START SAMPLING");
+  
   // 2
   tft.setFreeFont(FSS12);
   tft.setCursor(55,125);
   tft.setTextColor(TFT_CYAN3);
   tft.setTextSize(1);
-  tft.print("CALIBRATE");
+  tft.print(flowmode);
+  
   // 3
   tft.setFreeFont(FSS12);
   tft.setCursor(55,150);
   tft.setTextColor(TFT_CYAN3);
   tft.setTextSize(1);
-  tft.print("RUNNING TIME");
+  tft.print("CALIBRATE");
   // 4
   tft.setFreeFont(FSS12);
   tft.setCursor(55,175);
   tft.setTextColor(TFT_CYAN3);
   tft.setTextSize(1);
-  tft.print("START SAMPLING");
+  
+  tft.print("RUNNING TIME");
   // 5
   tft.setFreeFont(FSS12);
   tft.setCursor(55,200);
   tft.setTextColor(TFT_CYAN3);
   tft.setTextSize(1);
   tft.print("SETTINGS");
-  
 }
 void Screen_2T1(){
 // Transition 1

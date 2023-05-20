@@ -24,16 +24,21 @@ void timendate(String t,String d,String y){
   displaytime(t);
   displaydate(d,y);
 }
-void Screen14_flowrate(){
+void Screen14_flowrate(String flowmode,String flowunit){
   tft.setFreeFont(FSSB9); 
   tft.setCursor(25,90);
   tft.setTextColor(TFT_CYAN3);
   tft.setTextSize(1);
-  tft.print("FLOW");
+  tft.print(flowmode);
+  tft.setFreeFont(FSS09); 
+  tft.setCursor(85,90);
+  tft.setTextColor(TFT_GREY3);
+  tft.setTextSize(1);
+  tft.print(flowunit);
  
 }
 void Screen14_flowratevalue(String ft,String bp,String bpunitkpa,String flowunit,double flow,String FlowDisplay){
-  tft.pushImage(85,80,45,15, screen14flowunit);
+//  tft.pushImage(85,80,45,15, screen14flowunit);
   double ftemp = ft.toDouble();
   if(flowunit[0] == 'C' || flowunit[0] == 'm'){
        
@@ -55,7 +60,7 @@ void Screen14_flowratevalue(String ft,String bp,String bpunitkpa,String flowunit
   tft.setCursor(85,90);
   tft.setTextColor(TFT_GREY3);
   tft.setTextSize(1);
-  tft.print(flowunit);
+//  tft.print(flowunit);
 //  tft.fillRect(25,100,170,45, TFT_BLACK);
   tft.pushImage(25,100,170,45, flowrateback);
   tft.setFreeFont(&FreeSansBold24pt7b);
@@ -330,7 +335,7 @@ void beforefooter2(String m,String t,String h,String Tempunit){
   humvaluepercent2();
 }
 
-void DisplayScreen_14(String m,String t,String h,String f,String bp,String Tempunit,String bpunit,String flowunit,String volume,String timeh,double flow,String FlowDisplay){
+void DisplayScreen_14(String m,String t,String h,String f,String bp,String Tempunit,String bpunit,String flowunit,String volume,String timeh,double flow,String FlowDisplay,int flowmode){
   tft.pushImage(0,60,320, 150, midscreenback);
   String volumeunit = "LTR";
       if(flowunit[0] == 'C'){
@@ -355,7 +360,15 @@ void DisplayScreen_14(String m,String t,String h,String f,String bp,String Tempu
         int buff1 = round(buff);
         bp = String(buff1); 
       }
-  Screen14_flowrate();
+      if(flowmode == 0){
+          Screen14_flowrate("FLOW",flowunit);
+      }
+      if(flowmode == 1){
+        Screen14_flowrate("INLET PRESSURE","");
+      }
+      if(flowmode == 2){
+        Screen14_flowrate("FLOW",flowunit);
+      }
   if(Tempunit[0] == 'C'){
        if(t.toInt()>=100){
         t = "-";
@@ -404,9 +417,17 @@ void DisplayScreen_14(String m,String t,String h,String f,String bp,String Tempu
   humvalue2(h);
   }
 }
+void pausedscreen(){
+    tft.setFreeFont(FSSB12);
+    tft.setCursor(110,40);
+    tft.setTextColor(TFT_RED);
+    tft.setTextSize(1);
+    tft.print("PAUSED");
+    
+}
 void DisplayScreen_14_Update(String m,String t,String h,String f,String bp,String Tempunit,String bpunit,String flowunit,String volume,String timeh,double flow,String FlowDisplay){
       String volumeunit = "LTR";
-      
+
       if(flowunit[0] == 'C' || flowunit[0] == 'm'){
         volumeunit = "CC";
         double flowbuff = f.toDouble();
