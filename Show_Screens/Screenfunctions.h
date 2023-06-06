@@ -1,4 +1,4 @@
-#include <dummy_rp2040.h>
+//#include <dummy_rp2040.h>
 
 #include <TFT_eSPI.h>       
 #include "OneButton.h"
@@ -49,6 +49,7 @@
 #include "bpback.h"
 #include "bpunit.h"
 #include "screen14flowunit.h"
+#include "s14_paused.h"
 #include "delaytimeback.h"
 #include "runtimeback.h"
 #include "restartback.h"
@@ -61,11 +62,11 @@
 
 // Defination
 TFT_eSPI tft = TFT_eSPI();  
-//26,28,27
-OneButton button1(28, true);   // 
-OneButton button2(26, true);  //
-OneButton button3(27, true); //
-SerialUART SerialCustom(uart0, 16, 17);
+//25,26,27
+OneButton button1(25, true);   // down
+OneButton button2(26, true);  // up
+OneButton button3(27, true); // enter
+//SerialUART SerialCustom(uart0, 16, 17);
 
 // BOOLEAN
 volatile boolean Screen1 = true;
@@ -119,6 +120,7 @@ volatile boolean Screen13_1 = false;
 volatile boolean Screen13_2 = false;
 volatile boolean Screen13_3 = false;
 volatile boolean Screen14 = false;
+volatile boolean Screen14_1 = false;
 volatile boolean Screen15 = false;
 volatile boolean Screen15_1 = false;
 volatile boolean Screen15error = false;
@@ -294,20 +296,21 @@ void doubleclick3() {
 //void longPressStop3() {
 //  Serial.println("Button 2 longPress stop");
 //}
-void ISR_1(){
+void IRAM_ATTR ISR_1(){
+  
   button1.tick();
 }
-void ISR_2(){
+void IRAM_ATTR ISR_2(){
   button2.tick();
 }
-void ISR_3(){
+void IRAM_ATTR ISR_3(){
   button3.tick();
 }
 
 // Initialize screen
 void Startup(){
   Serial.begin(115200);
-  SerialCustom.begin(115200);
+//  SerialCustom.begin(115200);
 //  Serial.begin(115200, SERIAL_8N1, 16,17);
   tft.begin();
   tft.setSwapBytes(true);

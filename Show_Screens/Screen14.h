@@ -425,7 +425,10 @@ void pausedscreen(){
     tft.print("PAUSED");
     
 }
-void DisplayScreen_14_Update(String m,String t,String h,String f,String bp,String Tempunit,String bpunit,String flowunit,String volume,String timeh,double flow,String FlowDisplay){
+void pausedscreenfixed(){
+    tft.pushImage(110,20,105,25, s14_paused);
+}
+void DisplayScreen_14_Update(String m,String t,String h,String f,String bp,String Tempunit,String bpunit,String flowunit,String volume,String timeh,double flow,String FlowDisplay,int flowmode){
       String volumeunit = "LTR";
 
       if(flowunit[0] == 'C' || flowunit[0] == 'm'){
@@ -450,6 +453,15 @@ void DisplayScreen_14_Update(String m,String t,String h,String f,String bp,Strin
         buff = (10.1972 * buff);
         int buff1 = round(buff);
         bp = String(buff1); 
+      }
+       if(flowmode == 0){
+          Screen14_flowrate("FLOW",flowunit);
+      }
+      if(flowmode == 1){
+        Screen14_flowrate("INLET PRESSURE","");
+      }
+      if(flowmode == 2){
+        Screen14_flowrate("FLOW",flowunit);
       }
         if(Tempunit[0] == 'C'){
        if(t.toInt()>=100){
